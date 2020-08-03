@@ -6,7 +6,7 @@ perceptron will find the seperating hyperplane
 
 ### Logistic Regression
 - Logistic Regression is often referred to as the discriminative counterpart of Naive Bayes. 
-Here, ***P(y|xi)*** modeled and assume that it takes on exactly this form <br /> 
+Here, ***P(y|xi)*** is modeled and assume that it takes on exactly this form <br /> 
 ![equation](https://github.com/fuzailpalnak/ML-Scratch/blob/master/classifiers/linear/images/linear.png)
   
 ### Hinge
