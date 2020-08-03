@@ -1,7 +1,7 @@
 # Linear Regression
 
  - ***Absolute Error***, ***Squared Error*** and ***Huber Loss***
-works when the data is being drawn from a ***line*** and for each data point, the label is drawn from the line with some error ***epsilon***.
+works when the data is being drawn from a ***line*** and for each data point, the label is drawn from the ***line*** with some error ***epsilon***.
 This Model Assumption has to hold, while considering these loss function.
 ![img](https://github.com/fuzailpalnak/ML-Scratch/blob/master/regression/linear/images/error.png)
 
