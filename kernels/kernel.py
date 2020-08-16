@@ -42,8 +42,11 @@ class Kernel:
         """
         raise NotImplementedError
 
-    def product_rule(self, alpha, true_labels):
+    def classifier_product_rule(self, alpha, true_labels):
         """
+        Classifier product rule
+        w = [sum i=0->n] alpha_{i} * true_labels_{i} * K(x_{i}, x_{t})
+
         alpha is of shape (n)
         n = number of data points
 
@@ -54,8 +57,8 @@ class Kernel:
         :param true_labels:
         :return:
         """
-        
-        return alpha.dot((self.input_kernel_matrix * true_labels.T).T)
+
+        return (alpha*true_labels).dot(self.input_kernel_matrix)
 
     def compute_training_kernel_matrix(self):
         raise NotImplementedError
