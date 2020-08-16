@@ -44,17 +44,18 @@ class Kernel:
 
     def product_rule(self, alpha, true_labels):
         """
-        alpha is of shape (n X 1)
+        alpha is of shape (n)
         n = number of data points
 
-        true_labels is of shape (n X 1)
+        true_labels is of shape (n)
         n = number of data points
 
         :param alpha:
         :param true_labels:
         :return:
         """
-        return np.sum(alpha * self.input_kernel_matrix * true_labels.T, axis=1)
+        
+        return alpha.dot((self.input_kernel_matrix * true_labels.T).T)
 
     def compute_training_kernel_matrix(self):
         raise NotImplementedError
@@ -86,6 +87,10 @@ class RBF(Kernel):
         distance = pdist(self.input_mat, "sqeuclidean",)
         sq_form = squareform(np.exp((distance / (2 * self.sigma ** 2))))
         np.fill_diagonal(sq_form, sq_form.diagonal() + 1)
+        # The intuition behind Kernel is similar points have high positive value and and the value of points which are
+        # dissimilar  approaches zero, The sq_form introduces 0 in diagonal position, which is not true value, as
+        # the value in those position should be 1 as those points are operating on themselves and therefore distance is
+        # 0 and e power 0 is 1.
         return sq_form
 
     def decision(self, z, **kwargs):
