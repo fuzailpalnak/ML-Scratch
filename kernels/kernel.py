@@ -87,14 +87,13 @@ class RBF(Kernel):
 
         :return:
         """
-        distance = pdist(self.input_mat, "sqeuclidean",)
-        sq_form = squareform(np.exp((distance / (2 * self.sigma ** 2))))
-        np.fill_diagonal(sq_form, sq_form.diagonal() + 1)
-        # The intuition behind Kernel is similar points have high positive value and and the value of points which are
-        # dissimilar  approaches zero, The sq_form introduces 0 in diagonal position, which is not true value, as
-        # the value in those position should be 1 as those points are operating on themselves and therefore distance is
-        # 0 and e power 0 is 1.
-        return sq_form
+        n, m = self.input_mat.shape
+        g_matrix = self.input_mat.dot(self.input_mat.T)
+
+        g_tile = np.tile(np.diag(g_matrix), (n, 1))
+        g_tile = g_tile+g_tile.T - 2*g_matrix
+        rbf_kernel_matrix = np.exp((g_tile / (2 * self.sigma ** 2)))
+        return rbf_kernel_matrix
 
     def decision(self, z, **kwargs):
         """
