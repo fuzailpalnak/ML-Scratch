@@ -108,3 +108,45 @@ class RBF(Kernel):
         """
         distance = np.linalg.norm(self.input_mat - z, axis=1, ord=2) ** 2
         return np.exp((distance / (2 * self.sigma ** 2)))
+
+
+class Poly(Kernel):
+    def __init__(self, input_mat, degree):
+        """
+
+        Dimension of input_mat = (n X m)
+        m = number of features
+        n = number of data points
+
+        :param input_mat:
+        :param degree:
+        """
+        super().__init__(input_mat)
+        self.degree = degree
+        self.input_kernel_matrix = self.compute_training_kernel_matrix()
+
+    def compute_training_kernel_matrix(self):
+        """
+        Computation of Training Kernel Matrix, [all data points i->n; K(Xi, Xt)]
+
+        During training Xt is noting but the training points, so this kernel matrix can be computed just once.
+
+        :return:
+        """
+        g_matrix = self.input_mat.dot(self.input_mat.T)
+        g_matrix = 1 + g_matrix
+        poly_kernel = g_matrix ** self.degree
+        return poly_kernel
+
+    def decision(self, z, **kwargs):
+        """
+        This is used for prediction, prediction for just one test point at a time is supported
+
+        z = (1 x m)
+        m = number of features
+
+        :param z:
+        :param kwargs:
+        :return:
+        """
+        return self.input_mat.dot(z) ** 2

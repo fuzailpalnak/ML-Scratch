@@ -1,1 +1,1 @@
-from kernels.kernel import RBF
+from kernels.kernel import *

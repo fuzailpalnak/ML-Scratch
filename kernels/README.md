@@ -18,3 +18,6 @@ without ever computing a single vector ϕ(x) or ever computing the full vector *
 There are several kernel functions present out of which Radial Bias Function Kernel is popular.
 The RBF Kernel is defined as:-
 ![CodeCogsEqn (5)](https://user-images.githubusercontent.com/24665570/90312462-481d8e00-df22-11ea-8a77-a37e8234c92a.png)
+
+## Polynomial kernel
+![CodeCogsEqn (3)](https://user-images.githubusercontent.com/24665570/90977252-a3becb80-e561-11ea-9ade-4926b61fa935.png)
