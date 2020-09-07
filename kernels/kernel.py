@@ -58,7 +58,7 @@ class Kernel:
         :return:
         """
 
-        return (alpha*true_labels).dot(self.input_kernel_matrix)
+        return (alpha * true_labels).dot(self.input_kernel_matrix)
 
     def compute_training_kernel_matrix(self):
         raise NotImplementedError
@@ -91,7 +91,7 @@ class RBF(Kernel):
         g_matrix = self.input_mat.dot(self.input_mat.T)
 
         g_tile = np.tile(np.diag(g_matrix), (n, 1))
-        g_tile = g_tile+g_tile.T - 2*g_matrix
+        g_tile = g_tile + g_tile.T - 2 * g_matrix
         rbf_kernel_matrix = np.exp((g_tile / (2 * self.sigma ** 2)))
         return rbf_kernel_matrix
 
