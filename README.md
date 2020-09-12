@@ -13,7 +13,7 @@ Implementation of various Machine Learning Algorithms in Python
 
 ### Kernelized Classifier
 
-- Kernelized Logistic Regression
+- Kernelized Logistic Regression (RBF)
 
 
 ## Regression
@@ -24,7 +24,16 @@ Implementation of various Machine Learning Algorithms in Python
 - Huber Loss Regression
 - Absolute Loss Regression
 
+### Non Linear
+
+- Non Linear Kernel Regression (Polynomial)
 
 ## Kernels
 
 - Radial Bias Function Kernel (RBF)
+- Polynomial kernel
+
+## Markov Model
+
+- Markov Sequence Generator
+- Markov Stationary State
