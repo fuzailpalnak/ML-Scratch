@@ -60,12 +60,12 @@ class Kernel:
 
         return (alpha * true_labels).dot(self.input_kernel_matrix)
 
-    def compute_training_kernel_matrix(self):
+    def compute_kernel_matrix(self):
         raise NotImplementedError
 
 
 class RBF(Kernel):
-    def __init__(self, input_mat, sigma):
+    def __init__(self, input_mat, length_scale, output_variance=1):
         """
 
         Dimension of input_mat = (n X m)
@@ -73,13 +73,15 @@ class RBF(Kernel):
         n = number of data points
 
         :param input_mat:
-        :param sigma:
+        :param length_scale: determines the length of the 'wiggles' in your function
+        :param output_variance:  determines the average distance of your function away from its mean
         """
         super().__init__(input_mat)
-        self.sigma = sigma
-        self.input_kernel_matrix = self.compute_training_kernel_matrix()
+        self.length_scale = length_scale
+        self.output_variance = output_variance
+        self.input_kernel_matrix = self.compute_kernel_matrix()
 
-    def compute_training_kernel_matrix(self):
+    def compute_kernel_matrix(self):
         """
         Computation of Training Kernel Matrix, [all data points i->n; K(Xi, Xt)]
 
@@ -92,7 +94,7 @@ class RBF(Kernel):
 
         g_tile = np.tile(np.diag(g_matrix), (n, 1))
         g_tile = g_tile + g_tile.T - 2 * g_matrix
-        rbf_kernel_matrix = np.exp((g_tile / (2 * self.sigma ** 2)))
+        rbf_kernel_matrix = self.output_variance * np.exp(-(g_tile / (2 * self.length_scale ** 2)))
         return rbf_kernel_matrix
 
     def decision(self, z, **kwargs):
@@ -107,7 +109,7 @@ class RBF(Kernel):
         :return:
         """
         distance = np.linalg.norm(self.input_mat - z, axis=1, ord=2) ** 2
-        return np.exp((distance / (2 * self.sigma ** 2)))
+        return self.output_variance * np.exp(-(distance / (2 * self.length_scale ** 2)))
 
 
 class Poly(Kernel):
@@ -123,9 +125,9 @@ class Poly(Kernel):
         """
         super().__init__(input_mat)
         self.degree = degree
-        self.input_kernel_matrix = self.compute_training_kernel_matrix()
+        self.input_kernel_matrix = self.compute_kernel_matrix()
 
-    def compute_training_kernel_matrix(self):
+    def compute_kernel_matrix(self):
         """
         Computation of Training Kernel Matrix, [all data points i->n; K(Xi, Xt)]
 

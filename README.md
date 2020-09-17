@@ -27,6 +27,7 @@ Implementation of various Machine Learning Algorithms in Python
 ### Non Linear
 
 - Non Linear Kernel Regression (Polynomial)
+- Gaussian Regression (RBF Kernel)
 
 ## Kernels
 
