@@ -38,3 +38,7 @@ Implementation of various Machine Learning Algorithms in Python
 
 - Markov Sequence Generator
 - Markov Stationary State
+
+## Trees
+
+- KD Tress Nearest Neighbour Classifier
